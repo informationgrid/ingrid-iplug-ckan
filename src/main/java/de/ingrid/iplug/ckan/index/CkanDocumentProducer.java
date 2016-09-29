@@ -151,7 +151,7 @@ public class CkanDocumentProducer implements IDocumentProducer {
      */
     @Override
     public void configure(PlugDescription arg0) {
-        log.info("DscDocumentProducer: configuring...");
+        log.info("CkanDocumentProducer: configuring...");
     }
 
     @Override
