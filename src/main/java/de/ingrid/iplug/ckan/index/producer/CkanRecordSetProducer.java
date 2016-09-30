@@ -37,7 +37,6 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.ingrid.admin.elasticsearch.StatusProvider;
-import de.ingrid.iplug.ckan.CkanSearchPlug;
 import de.ingrid.iplug.ckan.om.SourceRecord;
 import de.ingrid.utils.IConfigurable;
 import de.ingrid.utils.PlugDescription;
@@ -52,16 +51,14 @@ import de.ingrid.utils.PlugDescription;
  * @author joachim@wemove.com
  * 
  */
-// Bean created depending on SpringConfiguration
-//@Service
 public class CkanRecordSetProducer implements
         IRecordSetProducer, IConfigurable {
 
     @Autowired
     private StatusProvider statusProvider;
-
-    private String searchUrl;
-    private String dataUrl;
+    
+    private String apiBaseUrl;
+    private String queryFilter;
     
     private boolean hasOneAlready = false;
     
@@ -73,8 +70,8 @@ public class CkanRecordSetProducer implements
 
     public CkanRecordSetProducer() {
         log.info("PlugDescriptionConfiguredDatabaseRecordProducer started.");
-        this.searchUrl = CkanSearchPlug.conf.ckanSearchUrl;
-        this.dataUrl = CkanSearchPlug.conf.ckanDataUrl;
+//        this.searchUrl = CkanSearchPlug.conf.ckanSearchUrl;
+//        this.dataUrl = CkanSearchPlug.conf.ckanDataUrl;
     }
 
     /*
@@ -117,8 +114,8 @@ public class CkanRecordSetProducer implements
         SourceRecord sourceRecord = new SourceRecord( id );
         
         try {
-            JSONObject json = requestJsonUrl(dataUrl + id);
-            sourceRecord.put( "json", json );
+            JSONObject json = requestJsonUrl(getApiBaseUrl() + "action/package_show?id=" + id);
+            sourceRecord.put( "json", json.get( "result" ) );
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -135,6 +132,8 @@ public class CkanRecordSetProducer implements
     @SuppressWarnings("unchecked")
     private void createRecordIdsFromSearch() {
         try {
+            
+            String searchUrl = getApiBaseUrl() + "search/dataset?rows=1000&q=" + getQueryFilter();
             if (log.isDebugEnabled()) {
                 log.debug("Requesting URL: " + searchUrl);
             }
@@ -169,6 +168,22 @@ public class CkanRecordSetProducer implements
 
     public void setStatusProvider(StatusProvider statusProvider) {
         this.statusProvider = statusProvider;
+    }
+
+    public String getApiBaseUrl() {
+        return apiBaseUrl;
+    }
+
+    public void setApiBaseUrl(String apiBaseUrl) {
+        this.apiBaseUrl = apiBaseUrl;
+    }
+
+    public String getQueryFilter() {
+        return queryFilter;
+    }
+
+    public void setQueryFilter(String queryFilter) {
+        this.queryFilter = queryFilter;
     }
 
 }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <!-- SEARCH / INDEX CONFIGURATION -->
+    <bean id="dscDocumentProducerBahn" class="de.ingrid.iplug.ckan.index.CkanDocumentProducer">
+        <property name="recordSetProducer" ref="recordSetProducerBahn" />
+        <property name="recordMapperList">
+            <list>
+                <ref bean="recordMapperBahn"/>
+                <!-- <ref bean="idfProducerIndexMapper"/> -->
+            </list>
+        </property>
+        <property name="indexInfo" ref="indexInfoBahn"></property>
+    </bean>
+    
+    <bean id="indexInfoBahn" class="de.ingrid.admin.elasticsearch.IndexInfo">
+        <property name="toIndex" value="govdata-iplug" />
+        <property name="toType" value="deutsche_bahn" />
+        <property name="docIdField" value="id" />
+    </bean>
+
+    <bean id="recordSetProducerBahn" class="de.ingrid.iplug.ckan.index.producer.CkanRecordSetProducer">
+        <property name="apiBaseUrl" value="http://data.deutschebahn.com/api/" />
+        <property name="queryFilter" value="" />
+    </bean>
+
+    <bean id="recordMapperBahn" class="de.ingrid.iplug.ckan.index.mapper.ScriptedDocumentMapper">
+        <property name="mappingScripts">
+            <list>
+                <value>classpath:mapping/global.js</value>
+                <value>classpath:mapping/ckan_to_lucene.js</value>
+            </list>
+        </property> 
+        <property name="compile" value="true" />
+    </bean>
+    
+    <!-- 
+    
+      Creates an IDF document via a  de.ingrid.iplug.ckan.record.DscRecordCreator and adds it
+      to the index in field 'idf'. 
+    
+    -->
+    
+    <!-- <bean id="dscRecordCreatorBahn" class="de.ingrid.iplug.ckan.record.DscRecordCreator">
+        <property name="recordProducer" ref="recordProducerBahn" />
+        <property name="record2IdfMapperList">
+            <list>
+                <ref bean="createIdfMapperBahn"/>
+                <ref bean="scriptedIdfMapperBahn"/>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="recordProducerBahn" class="de.ingrid.iplug.ckan.record.producer.PlugDescriptionConfiguredDatabaseRecordProducer">
+        <property name="indexFieldID" value="t01_object.id" />
+    </bean>
+    
+    <bean id="createIdfMapperBahn" class="de.ingrid.iplug.ckan.record.mapper.CreateIdfMapper"/>
+
+    <bean id="scriptedIdfMapperBahn" class="de.ingrid.iplug.ckan.record.mapper.ScriptedIdfMapper">
+        <property name="mappingScripts">
+            <list>
+                <value>classpath:mapping/global.js</value>
+                <value>classpath:mapping/idf_utils.js</value>
+                <value>classpath:mapping/igc_to_idf.js</value>
+            </list>
+        </property> 
+        <property name="compile" value="true" />
+    </bean> -->
+
+</beans>

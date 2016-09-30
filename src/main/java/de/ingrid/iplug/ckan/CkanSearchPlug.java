@@ -66,7 +66,7 @@ public class CkanSearchPlug extends HeartBeatPlug implements IRecordLoader {
 
     public static Configuration conf;
 
-    private DscRecordCreator dscRecordProducer = null;
+//    private DscRecordCreator dscRecordProducer = null;
     
     private final IndexImpl _indexSearcher;    
     
@@ -74,11 +74,11 @@ public class CkanSearchPlug extends HeartBeatPlug implements IRecordLoader {
     public CkanSearchPlug(final IndexImpl indexSearcher,
             IPlugdescriptionFieldFilter[] fieldFilters,
             IMetadataInjector[] injector, IPreProcessor[] preProcessors,
-            IPostProcessor[] postProcessors, DscRecordCreator producer) throws IOException {
+            IPostProcessor[] postProcessors) throws IOException {
         super(60000, new PlugDescriptionFieldFilters(fieldFilters), injector,
                 preProcessors, postProcessors);
         _indexSearcher = indexSearcher;
-        dscRecordProducer = producer;
+//        dscRecordProducer = producer;
     }
 
 
@@ -103,7 +103,7 @@ public class CkanSearchPlug extends HeartBeatPlug implements IRecordLoader {
     @Override
     public Record getRecord(IngridHit hit) throws Exception {
         ElasticDocument document = _indexSearcher.getDocById( hit.getDocumentId() );
-        return dscRecordProducer.getRecord(document);
+        return null;// dscRecordProducer.getRecord(document);
     }
 
     /* (non-Javadoc)
@@ -134,13 +134,13 @@ public class CkanSearchPlug extends HeartBeatPlug implements IRecordLoader {
         return details;
     }
     
-    public DscRecordCreator getDscRecordProducer() {
-        return dscRecordProducer;
-    }
-
-    public void setDscRecordProducer(DscRecordCreator dscRecordProducer) {
-        this.dscRecordProducer = dscRecordProducer;
-    }
+//    public DscRecordCreator getDscRecordProducer() {
+//        return dscRecordProducer;
+//    }
+//
+//    public void setDscRecordProducer(DscRecordCreator dscRecordProducer) {
+//        this.dscRecordProducer = dscRecordProducer;
+//    }
     
     public static void main(String[] args) throws Exception {
         conf = new ConfigBuilder<Configuration>(Configuration.class).withCommandLineArgs(args).build();

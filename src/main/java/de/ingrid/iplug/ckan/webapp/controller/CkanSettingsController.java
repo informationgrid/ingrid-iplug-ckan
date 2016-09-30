@@ -22,7 +22,6 @@
  */
 package de.ingrid.iplug.ckan.webapp.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +37,7 @@ import de.ingrid.iplug.ckan.CkanSearchPlug;
  * @author joachim@wemove.com
  * 
  */
-@Controller
+//@Controller
 @SessionAttributes("plugDescription")
 public class CkanSettingsController extends AbstractController {
 
