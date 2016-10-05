@@ -22,6 +22,7 @@
  */
 package de.ingrid.iplug.ckan.webapp.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,7 @@ import de.ingrid.iplug.ckan.CkanSearchPlug;
  * @author joachim@wemove.com
  * 
  */
-//@Controller
+@Controller
 @SessionAttributes("plugDescription")
 public class CkanSettingsController extends AbstractController {
 
@@ -47,8 +48,8 @@ public class CkanSettingsController extends AbstractController {
     public String getParameters(final ModelMap modelMap) {
 
         CkanConfig ckanConfig = new CkanConfig();
-        ckanConfig.setSearchUrl( CkanSearchPlug.conf.ckanSearchUrl );
-        ckanConfig.setDataUrl( CkanSearchPlug.conf.ckanDataUrl );
+        ckanConfig.setBaseUrl( CkanSearchPlug.conf.ckanBaseUrl );
+        ckanConfig.setQueryFilter( CkanSearchPlug.conf.ckanQueryFilter );
         // write object into session
         modelMap.addAttribute( "ckanConfig", ckanConfig );
         return AdminViews.CKAN_SETTINGS;
@@ -58,8 +59,8 @@ public class CkanSettingsController extends AbstractController {
     public String post(
             @ModelAttribute("ckanConfig") final CkanConfig ckanConfig) {
 
-        CkanSearchPlug.conf.ckanSearchUrl = ckanConfig.getSearchUrl();
-        CkanSearchPlug.conf.ckanDataUrl = ckanConfig.getDataUrl();
+        CkanSearchPlug.conf.ckanBaseUrl = ckanConfig.getBaseUrl();
+        CkanSearchPlug.conf.ckanQueryFilter = ckanConfig.getQueryFilter();
 
         return AdminViews.SAVE;
     }

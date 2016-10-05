@@ -71,25 +71,25 @@
                 <input type="hidden" name="id" value="" />
                 <table id="konfigForm">
                     <tr>
-                        <td class="leftCol">Such-URL</td>
+                        <td class="leftCol">API-URL</td>
                         <td>
                             <div class="input full">
-                                <form:input path="searchUrl" />
+                                <form:input path="baseUrl" />
                             </div>
                             <p>
-                                Geben Sie hier die Adresse an, die die IDs der zu indexierenden Datensätze holt.
+                                Geben Sie hier die Adresse an, die zur API der CKAN Schnittstelle gehört.
                             </p>
-                            <p style="color: gray;">(Zum Beispiel: https://ckan.govdata.de/api/search/dataset?q=groups:transport_verkehr&limit=1000)</p>
+                            <p style="color: gray;">(Zum Beispiel: https://ckan.govdata.de/api/)</p>
                         </td>
                     </tr>
                     <tr>
-                        <td class="leftCol">Datensatz-URL</td>
+                        <td class="leftCol">Query-Filter</td>
                         <td>
                             <div class="input full">
-                                <form:input path="dataUrl" />
+                                <form:input path="queryFilter" />
                             </div>
-                            Geben Sie hier die Adresse an, um einen Datensatz anzufragen. Die ID wird hinter diese Adresse beim Indexieren gehängt.
-                            <p style="color: gray;">(Zum Beispiel: https://www.govdata.de/ckan/api/rest/dataset/)</p>
+                            Geben Sie hier den Filter an, um die Datensätze einzuschränken.
+                            <p style="color: gray;">(Zum Beispiel: groups:transport_verkehr)</p>
                         </td>
                     </tr>
                 </table>

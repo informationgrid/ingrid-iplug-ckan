@@ -43,13 +43,13 @@ public class Configuration implements IConfig {
     @SuppressWarnings("unused")
     private static Log log = LogFactory.getLog(Configuration.class);
     
-    @PropertyValue("ckan.url.search")
-    @DefaultValue("https://ckan.govdata.de/api/search/dataset?q=groups:transport_verkehr&limit=1000")
-    public String ckanSearchUrl;
+    @PropertyValue("ckan.base.url")
+    @DefaultValue("https://ckan.govdata.de/api/")
+    public String ckanBaseUrl;
     
-    @PropertyValue("ckan.url.data")
-    @DefaultValue("https://www.govdata.de/ckan/api/rest/dataset/")
-    public String ckanDataUrl;
+    @PropertyValue("ckan.query.filter")
+    @DefaultValue("groups:transport_verkehr")
+    public String ckanQueryFilter;
  
 
     @Override
@@ -70,8 +70,8 @@ public class Configuration implements IConfig {
 
     @Override
     public void setPropertiesFromPlugdescription( Properties props, PlugdescriptionCommandObject pd ) {
-        props.put( "ckan.url.search", ckanSearchUrl );
-        props.put( "ckan.url.data", ckanDataUrl );
+        props.put( "ckan.base.url", ckanBaseUrl );
+        props.put( "ckan.query.filter", ckanQueryFilter );
     }
 
 

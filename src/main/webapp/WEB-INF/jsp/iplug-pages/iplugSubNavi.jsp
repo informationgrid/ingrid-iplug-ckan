@@ -23,4 +23,4 @@
 <%@ include file="/WEB-INF/jsp/base/include.jsp" %>
 
 <menutaglib:MenuTag text="Weitere Einstellungen" url="../base/extras.html" ></menutaglib:MenuTag>
-<!-- <menutaglib:MenuTag text="CKAN Einstellungen" url="../iplug-pages/ckanSettings.html" ></menutaglib:MenuTag> -->
+<menutaglib:MenuTag text="CKAN Einstellungen" url="../iplug-pages/ckanSettings.html" ></menutaglib:MenuTag>

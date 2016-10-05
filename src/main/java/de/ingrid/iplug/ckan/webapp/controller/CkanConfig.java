@@ -23,22 +23,22 @@
 package de.ingrid.iplug.ckan.webapp.controller;
 
 public class CkanConfig {
-    private String searchUrl;
-    private String dataUrl;
+    private String baseUrl;
+    private String queryFilter;
 
-    public String getSearchUrl() {
-        return searchUrl;
+    public String getBaseUrl() {
+        return baseUrl;
     }
 
-    public void setSearchUrl(String searchUrl) {
-        this.searchUrl = searchUrl;
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
-    public String getDataUrl() {
-        return dataUrl;
+    public String getQueryFilter() {
+        return queryFilter;
     }
 
-    public void setDataUrl(String dataUrl) {
-        this.dataUrl = dataUrl;
+    public void setQueryFilter(String queryFilter) {
+        this.queryFilter = queryFilter;
     }
 }

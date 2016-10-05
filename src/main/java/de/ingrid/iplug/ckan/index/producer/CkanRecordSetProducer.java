@@ -37,6 +37,7 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.ingrid.admin.elasticsearch.StatusProvider;
+import de.ingrid.iplug.ckan.CkanSearchPlug;
 import de.ingrid.iplug.ckan.om.SourceRecord;
 import de.ingrid.utils.IConfigurable;
 import de.ingrid.utils.PlugDescription;
@@ -68,11 +69,7 @@ public class CkanRecordSetProducer implements
     final private static Log log = LogFactory
             .getLog(CkanRecordSetProducer.class);
 
-    public CkanRecordSetProducer() {
-        log.info("PlugDescriptionConfiguredDatabaseRecordProducer started.");
-//        this.searchUrl = CkanSearchPlug.conf.ckanSearchUrl;
-//        this.dataUrl = CkanSearchPlug.conf.ckanDataUrl;
-    }
+    public CkanRecordSetProducer() {}
 
     /*
      * (non-Javadoc)
@@ -127,6 +124,8 @@ public class CkanRecordSetProducer implements
 
     @Override
     public void configure(PlugDescription plugDescription) {
+        this.apiBaseUrl = CkanSearchPlug.conf.ckanBaseUrl;
+        this.queryFilter = CkanSearchPlug.conf.ckanQueryFilter;
     }
 
     @SuppressWarnings("unchecked")
@@ -171,6 +170,9 @@ public class CkanRecordSetProducer implements
     }
 
     public String getApiBaseUrl() {
+        if (!apiBaseUrl.endsWith( "/" )) {
+            return apiBaseUrl + "/";
+        }
         return apiBaseUrl;
     }
 

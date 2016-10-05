@@ -56,8 +56,8 @@ public class ScriptedDatabaseDocumentProducerTest {
         MockitoAnnotations.initMocks( this );
         Configuration conf = new Configuration();
         
-        conf.ckanSearchUrl = "https://ckan.govdata.de/api/search/dataset?q=groups:transport_verkehr&limit=1000";
-        conf.ckanDataUrl = "https://www.govdata.de/ckan/api/rest/dataset/";
+        conf.ckanBaseUrl = "https://ckan.govdata.de/api/";
+        conf.ckanQueryFilter = "groups:transport_verkehr";
         
         CkanSearchPlug.conf = conf;
     }
@@ -67,6 +67,7 @@ public class ScriptedDatabaseDocumentProducerTest {
 
         CkanRecordSetProducer p = new CkanRecordSetProducer();
         p.setStatusProvider( statusProvider );
+        p.configure( null );
 
         ScriptedDocumentMapper m = new ScriptedDocumentMapper();
         Resource[] mappingScripts = {

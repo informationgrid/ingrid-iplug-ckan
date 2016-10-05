@@ -26,8 +26,8 @@
     </bean>
 
     <bean id="recordSetProducer" class="de.ingrid.iplug.ckan.index.producer.CkanRecordSetProducer">
-        <property name="apiBaseUrl" value="https://www.govdata.de/ckan/api/" />
-        <property name="queryFilter" value="groups:transport_verkehr" />
+        <!-- <property name="apiBaseUrl" value="https://www.govdata.de/ckan/api/" />
+        <property name="queryFilter" value="groups:transport_verkehr" /> -->
     </bean>
 
     <bean id="recordMapper" class="de.ingrid.iplug.ckan.index.mapper.ScriptedDocumentMapper">
