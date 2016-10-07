@@ -20,7 +20,8 @@
     </bean>
     
     <bean id="indexInfo" class="de.ingrid.admin.elasticsearch.IndexInfo">
-        <property name="toIndex" value="govdata-iplug" />
+        <property name="toAlias" value="mcloud" />
+        <property name="toIndex" value="ckan_govdata" />
         <property name="toType" value="transport_verkehr" />
         <property name="docIdField" value="id" />
     </bean>
