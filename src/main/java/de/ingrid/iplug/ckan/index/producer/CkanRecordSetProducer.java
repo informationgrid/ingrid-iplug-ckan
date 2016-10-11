@@ -25,6 +25,8 @@
  */
 package de.ingrid.iplug.ckan.index.producer;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Iterator;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -54,6 +56,8 @@ import de.ingrid.utils.PlugDescription;
  */
 public class CkanRecordSetProducer implements
         IRecordSetProducer, IConfigurable {
+
+    private static final int PAGING_SIZE = 1000;
 
     @Autowired
     private StatusProvider statusProvider;
@@ -132,17 +136,30 @@ public class CkanRecordSetProducer implements
     private void createRecordIdsFromSearch() {
         try {
             
-            String searchUrl = getApiBaseUrl() + "search/dataset?rows=1000&q=" + getQueryFilter();
-            if (log.isDebugEnabled()) {
-                log.debug("Requesting URL: " + searchUrl);
+            JSONArray completeResult = new JSONArray();
+            int page = 0;
+            boolean hasMoreIDs = true;
+            String searchUrl = getApiBaseUrl() + "search/dataset?rows=" + PAGING_SIZE + "&q=" + getQueryFilter();
+            while (hasMoreIDs) {
+                int offset = PAGING_SIZE * page;
+                String offsetSearchUrl = searchUrl + "&offset=" + offset;
+                if (log.isDebugEnabled()) {
+                    log.debug("Requesting URL: " + offsetSearchUrl);
+                }
+                
+                
+                JSONObject parse = requestJsonUrl( offsetSearchUrl );
+                Long count = (Long) parse.get( "count" );
+                this.numRecords = count.intValue();
+                JSONArray results = (JSONArray) parse.get( "results" );
+                completeResult.addAll( results );
+                if (count - offset - PAGING_SIZE < 0) {
+                    hasMoreIDs = false;
+                }
+                page++;
             }
             
-            JSONObject parse = requestJsonUrl( searchUrl );
-            Long count = (Long) parse.get( "count" );
-            JSONArray results = (JSONArray) parse.get( "results" );
-            
-            this.recordIdIterator = results.iterator();
-            this.numRecords = count.intValue();
+            this.recordIdIterator = completeResult.iterator();
            
         } catch (Exception e) {
             log.error("Error creating record ids.", e);
@@ -180,8 +197,8 @@ public class CkanRecordSetProducer implements
         this.apiBaseUrl = apiBaseUrl;
     }
 
-    public String getQueryFilter() {
-        return queryFilter;
+    public String getQueryFilter() throws UnsupportedEncodingException {
+        return URLEncoder.encode( queryFilter, "UTF8" );
     }
 
     public void setQueryFilter(String queryFilter) {
