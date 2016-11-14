@@ -33,9 +33,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 
 import de.ingrid.iplug.ckan.om.SourceRecord;
-import de.ingrid.iplug.ckan.utils.IndexUtils;
 import de.ingrid.iplug.ckan.utils.ScriptEngine;
 import de.ingrid.utils.ElasticDocument;
+import de.ingrid.utils.index.IndexUtils;
 
 /**
  * Script based source record to lucene document mapping. This class takes a
