@@ -115,8 +115,8 @@ public class CkanRecordSetProducer implements
         SourceRecord sourceRecord = new SourceRecord( id );
         
         try {
-            JSONObject json = requestJsonUrl(getApiBaseUrl() + "action/package_show?id=" + id);
-            sourceRecord.put( "json", json.get( "result" ) );
+            JSONObject json = requestJsonUrl(getApiBaseUrl() + "rest/dataset/" + id);
+            sourceRecord.put( "json", json );
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
