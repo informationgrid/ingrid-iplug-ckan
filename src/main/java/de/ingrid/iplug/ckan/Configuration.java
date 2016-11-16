@@ -29,10 +29,12 @@ import org.apache.commons.logging.LogFactory;
 
 import com.tngtech.configbuilder.annotation.propertyloaderconfiguration.PropertiesFiles;
 import com.tngtech.configbuilder.annotation.propertyloaderconfiguration.PropertyLocations;
+import com.tngtech.configbuilder.annotation.typetransformer.TypeTransformers;
 import com.tngtech.configbuilder.annotation.valueextractor.DefaultValue;
 import com.tngtech.configbuilder.annotation.valueextractor.PropertyValue;
 
 import de.ingrid.admin.IConfig;
+import de.ingrid.admin.Config.StringToArray;
 import de.ingrid.admin.command.PlugdescriptionCommandObject;
 import de.ingrid.utils.PlugDescription;
 
@@ -50,6 +52,11 @@ public class Configuration implements IConfig {
     @PropertyValue("ckan.query.filter")
     @DefaultValue("groups:transport_verkehr")
     public String ckanQueryFilter;
+    
+    @TypeTransformers(StringToArray.class)
+    @PropertyValue("ckan.subgroups")
+    @DefaultValue("")
+    public String[] subgroups;
  
 
     @Override
@@ -72,6 +79,7 @@ public class Configuration implements IConfig {
     public void setPropertiesFromPlugdescription( Properties props, PlugdescriptionCommandObject pd ) {
         props.put( "ckan.base.url", ckanBaseUrl );
         props.put( "ckan.query.filter", ckanQueryFilter );
+        props.put( "ckan.subgroups", String.join( ",", subgroups ) );
     }
 
 

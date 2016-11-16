@@ -49,3 +49,10 @@ if (!(sourceRecord instanceof JSONObject)) {
 //IDX.add("summary", sourceRecord.get("notes"));
 //IDX.add("tags", sourceRecord.get("tags"));
 IDX.addAll(sourceRecord);
+
+// set/override subgroups for mcloud use
+var extras = sourceRecord.get("extras");
+if (extras) {
+    extras.put("subgroups", subgroups);
+    luceneDoc.put("extras", extras);
+}

@@ -92,6 +92,15 @@
                             <p style="color: gray;">(Zum Beispiel: groups:transport_verkehr)</p>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="leftCol">Subgroups</td>
+                        <td>
+                            <div class="input full">
+                                <form:input path="subgroups" />
+                            </div>
+                            Hier werden die Kategorien angegeben, zu welchen die indizierten Datensätze hinzugefügt werden sollen.
+                        </td>
+                    </tr>
                 </table>
             </form:form>
         </div>

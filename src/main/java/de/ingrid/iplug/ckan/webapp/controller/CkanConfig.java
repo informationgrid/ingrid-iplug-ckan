@@ -25,6 +25,7 @@ package de.ingrid.iplug.ckan.webapp.controller;
 public class CkanConfig {
     private String baseUrl;
     private String queryFilter;
+    private String subgroups;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -40,5 +41,13 @@ public class CkanConfig {
 
     public void setQueryFilter(String queryFilter) {
         this.queryFilter = queryFilter;
+    }
+
+    public String getSubgroups() {
+        return subgroups;
+    }
+
+    public void setSubgroups(String subgroups) {
+        this.subgroups = subgroups;
     }
 }

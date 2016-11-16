@@ -22,6 +22,9 @@
  */
 package de.ingrid.iplug.ckan.webapp.controller;
 
+import java.util.Arrays;
+
+import org.apache.commons.lang.ArrayUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,17 +53,18 @@ public class CkanSettingsController extends AbstractController {
         CkanConfig ckanConfig = new CkanConfig();
         ckanConfig.setBaseUrl( CkanSearchPlug.conf.ckanBaseUrl );
         ckanConfig.setQueryFilter( CkanSearchPlug.conf.ckanQueryFilter );
+        ckanConfig.setSubgroups( String.join( ",", CkanSearchPlug.conf.subgroups ) );
         // write object into session
         modelMap.addAttribute( "ckanConfig", ckanConfig );
         return AdminViews.CKAN_SETTINGS;
     }
 
     @RequestMapping(value = "/iplug-pages/ckanSettings.html", method = RequestMethod.POST)
-    public String post(
-            @ModelAttribute("ckanConfig") final CkanConfig ckanConfig) {
+    public String post(@ModelAttribute("ckanConfig") final CkanConfig ckanConfig) {
 
         CkanSearchPlug.conf.ckanBaseUrl = ckanConfig.getBaseUrl();
         CkanSearchPlug.conf.ckanQueryFilter = ckanConfig.getQueryFilter();
+        CkanSearchPlug.conf.subgroups = ckanConfig.getSubgroups().split( "," );
 
         return AdminViews.SAVE;
     }

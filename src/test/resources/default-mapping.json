@@ -42,6 +42,10 @@
 				},
 				"temporal_coverage_to": {
 					"type": "string"
+				},
+				"subgroups": {
+				    "type": "string",
+                    "index": "not_analyzed"
 				}
 			}
 		},

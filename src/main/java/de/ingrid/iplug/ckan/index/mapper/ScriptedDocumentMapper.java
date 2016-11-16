@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 
+import de.ingrid.iplug.ckan.CkanSearchPlug;
 import de.ingrid.iplug.ckan.om.SourceRecord;
 import de.ingrid.iplug.ckan.utils.ScriptEngine;
 import de.ingrid.utils.ElasticDocument;
@@ -73,6 +74,7 @@ public class ScriptedDocumentMapper implements IRecordMapper {
 			parameters.put("log", log);
 			parameters.put("IDX", idxUtils);
 			parameters.put("javaVersion", System.getProperty( "java.version" ));
+			parameters.put("subgroups", CkanSearchPlug.conf.subgroups);
 
 			ScriptEngine.execute(this.mappingScripts, parameters, compile);
         } catch (Exception e) {
