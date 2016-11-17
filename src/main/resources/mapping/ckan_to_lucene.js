@@ -54,5 +54,6 @@ IDX.addAll(sourceRecord);
 var extras = sourceRecord.get("extras");
 if (extras) {
     extras.put("subgroups", subgroups);
+    luceneDoc.remove("extras");
     luceneDoc.put("extras", extras);
 }
