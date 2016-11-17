@@ -30,6 +30,8 @@ importPackage(Packages.de.ingrid.geo.utils.transformation);
 importPackage(Packages.de.ingrid.iplug.wfs.dsc.tools);
 importPackage(Packages.java.lang);
 importPackage(Packages.org.json.simple);
+importPackage(Packages.java.util);
+importPackage(Packages.de.ingrid.utils.udk);
 
 if (log.isDebugEnabled()) {
   log.debug("Mapping source record to lucene document: " + sourceRecord.toString());
@@ -54,6 +56,23 @@ IDX.addAll(sourceRecord);
 var extras = sourceRecord.get("extras");
 if (extras) {
     extras.put("subgroups", subgroups);
+    
     luceneDoc.remove("extras");
     luceneDoc.put("extras", extras);
+    
+    // convert string to json object for "extras.dates" 
+    var extrasDoc = luceneDoc.get("extras");
+    var dates = extrasDoc.get("dates");
+    if (dates && typeof(dates) === "string") {
+        var datesObj = eval(dates);
+        var list = new ArrayList();
+        for (var i=0; i<datesObj.length; i++) {
+            log.debug("before: " + datesObj[i].date);
+            datesObj[i].date = UtilsDate.parseDateString(datesObj[i].date);
+            log.debug("after: " + datesObj[i].date);
+            list.add(datesObj[i]);
+        }
+        extrasDoc.remove("dates");
+        extrasDoc.put("dates", list);
+    }
 }
