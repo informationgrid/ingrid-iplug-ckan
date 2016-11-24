@@ -29,16 +29,20 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.ingrid.admin.elasticsearch.StatusProvider;
+import de.ingrid.admin.elasticsearch.StatusProvider.Classification;
 import de.ingrid.iplug.ckan.CkanSearchPlug;
 import de.ingrid.iplug.ckan.om.SourceRecord;
 import de.ingrid.utils.IConfigurable;
@@ -118,8 +122,8 @@ public class CkanRecordSetProducer implements
             JSONObject json = requestJsonUrl(getApiBaseUrl() + "rest/dataset/" + id);
             sourceRecord.put( "json", json );
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("Error fetching next record:", e);
+            statusProvider.addState( "ERROR_FETCH_RECORD", e.getMessage(), Classification.ERROR );
         }
         
         // hasOneAlready = true;
@@ -163,15 +167,16 @@ public class CkanRecordSetProducer implements
            
         } catch (Exception e) {
             log.error("Error creating record ids.", e);
+            statusProvider.addState( "ERROR_RECORD_IDS", e.getMessage(), Classification.ERROR );
         }
     }
     
     private JSONObject requestJsonUrl(String url) throws Exception {
-        HttpClient client = new HttpClient();
-        GetMethod getMethod = new GetMethod( url );
-        getMethod.addRequestHeader( "User-Agent", "Request-Promise" );
-        client.executeMethod( getMethod );
-        String json = getMethod.getResponseBodyAsString();
+        HttpClient client = HttpClientBuilder.create().useSystemProperties().build();
+        HttpGet getMethod = new HttpGet( url );
+        getMethod.addHeader( "User-Agent", "Request-Promise" );
+        HttpResponse response = client.execute( getMethod );
+        String json = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
         log.debug( "response: " + json );
         return (JSONObject) new JSONParser().parse( json );
     }
