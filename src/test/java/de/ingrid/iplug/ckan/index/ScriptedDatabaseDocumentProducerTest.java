@@ -58,6 +58,7 @@ public class ScriptedDatabaseDocumentProducerTest {
         
         conf.ckanBaseUrl = "https://ckan.govdata.de/api/";
         conf.ckanQueryFilter = "groups:transport_verkehr";
+        conf.subgroups = new String[] {"waters"};
         
         CkanSearchPlug.conf = conf;
     }
