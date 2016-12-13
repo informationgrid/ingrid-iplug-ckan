@@ -22,9 +22,6 @@
  */
 package de.ingrid.iplug.ckan.webapp.controller;
 
-import java.util.Arrays;
-
-import org.apache.commons.lang.ArrayUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
