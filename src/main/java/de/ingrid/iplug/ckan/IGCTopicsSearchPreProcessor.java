@@ -22,7 +22,8 @@
  */
 package de.ingrid.iplug.ckan;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import de.ingrid.utils.processor.IPreProcessor;
@@ -35,7 +36,7 @@ import de.ingrid.utils.query.IngridQuery;
 @Service
 public class IGCTopicsSearchPreProcessor implements IPreProcessor {
 
-    private static final Logger LOG = Logger.getLogger(IGCTopicsSearchPreProcessor.class);
+    private static final Logger LOG = LogManager.getLogger(IGCTopicsSearchPreProcessor.class);
 
     // query fields / values
     public final static String QVALUE_DATATYPE_TOPICS = "topics";

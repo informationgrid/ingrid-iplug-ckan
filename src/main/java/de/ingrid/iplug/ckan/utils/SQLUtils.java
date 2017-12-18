@@ -36,7 +36,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Helper class encapsulating SQL access via JDBC connection (e.g. used in
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
  */
 public class SQLUtils {
 
-    private static final Logger log = Logger.getLogger(SQLUtils.class);
+    private static final Logger log = LogManager.getLogger(SQLUtils.class);
 
     private Connection connection = null;
 

@@ -1,0 +1,23 @@
+{
+  "index": {
+    "analysis": {
+      "filter": {
+        "decomp": {
+          "type": "decompound"
+        }
+      },
+      "analyzer": {
+        "decomp": {
+          "filter": [
+            "decomp",
+            "unique",
+            "german_normalization",
+            "lowercase"
+          ],
+          "type": "custom",
+          "tokenizer": "standard"
+        }
+      }
+    }
+  }
+}

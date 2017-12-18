@@ -32,7 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.ingrid.geo.utils.transformation.CoordTransformUtil;
 import de.ingrid.geo.utils.transformation.CoordTransformUtil.CoordType;
@@ -49,7 +50,7 @@ import de.ingrid.utils.udk.UtilsUDKCodeLists;
  */
 public class TransformationUtils {
 
-    private static final Logger log = Logger.getLogger(TransformationUtils.class);
+    private static final Logger log = LogManager.getLogger(TransformationUtils.class);
 
     /** e.g. for selecting values from syslist */
     private SQLUtils SQL = null;

@@ -28,7 +28,8 @@ package de.ingrid.iplug.ckan.index.mapper;
 import java.util.Hashtable;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 
@@ -56,7 +57,7 @@ public class ScriptedDocumentMapper implements IRecordMapper {
     private Resource[] mappingScripts;
     private boolean compile = false;
 
-    private static final Logger log = Logger.getLogger(ScriptedDocumentMapper.class);
+    private static final Logger log = LogManager.getLogger(ScriptedDocumentMapper.class);
 
     @Override
     public synchronized void map(SourceRecord record, ElasticDocument doc) throws Exception {

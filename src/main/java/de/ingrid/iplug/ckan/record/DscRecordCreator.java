@@ -28,7 +28,8 @@ package de.ingrid.iplug.ckan.record;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.ingrid.iplug.ckan.record.mapper.IIdfMapper;
 import de.ingrid.iplug.ckan.record.producer.IRecordProducer;
@@ -52,7 +53,7 @@ import de.ingrid.utils.dsc.Record;
 // @Service
 public class DscRecordCreator {
 
-    protected static final Logger log = Logger.getLogger( DscRecordCreator.class );
+    protected static final Logger log = LogManager.getLogger( DscRecordCreator.class );
 
     // @Autowired
     private IRecordProducer recordProducer = null;

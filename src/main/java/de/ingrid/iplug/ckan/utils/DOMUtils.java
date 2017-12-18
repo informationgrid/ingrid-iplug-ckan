@@ -28,7 +28,8 @@ package de.ingrid.iplug.ckan.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -45,7 +46,7 @@ import de.ingrid.utils.xpath.XPathUtils;
  */
 public class DOMUtils {
 
-    private static final Logger log = Logger.getLogger(DOMUtils.class);
+    private static final Logger log = LogManager.getLogger(DOMUtils.class);
 
     private Document myDoc = null;
     private XPathUtils xPathUtils = null;

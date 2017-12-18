@@ -4,13 +4,13 @@
 	},
 	"properties": {
 		"title": {
-			"type": "string",
-			"analyzer": "german"
-		},
-		"notes": {
-			"type": "string",
-			"analyzer": "german"
-		},
+            "type": "string",
+            "analyzer": "decomp"
+        },
+        "notes": {
+            "type": "string",
+            "analyzer": "decomp"
+        },
 		"id": {
 			"type": "string",
 			"index": "not_analyzed"

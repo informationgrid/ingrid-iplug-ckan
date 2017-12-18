@@ -3,7 +3,7 @@
   <parent>
     <groupId>de.ingrid</groupId>
     <artifactId>ingrid-releases-pom</artifactId>
-    <version>3.6.2</version>
+    <version>4.1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ingrid-iplug-ckan</artifactId>
@@ -64,17 +64,21 @@
           <groupId>jetty</groupId>
           <artifactId>org.mortbay.jetty</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
       <groupId>de.ingrid</groupId>
       <artifactId>ingrid-base-webapp</artifactId>
-      <version>4.1.0-SNAPSHOT</version>
+      <version>4.2.0.mcloud-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>de.ingrid</groupId>
       <artifactId>ingrid-base-webapp</artifactId>
-      <version>4.1.0-SNAPSHOT</version>
+      <version>4.2.0.mcloud-SNAPSHOT</version>
       <classifier>res</classifier>
       <type>zip</type>
     </dependency>
@@ -82,6 +86,12 @@
       <groupId>de.ingrid</groupId>
       <artifactId>ingrid-utils</artifactId>
       <version>4.1.0-SNAPSHOT</version>
+      <exclusions>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>de.ingrid</groupId>
@@ -112,6 +122,12 @@
       <artifactId>httpclient</artifactId>
       <version>4.5.2</version>
     </dependency>
+    
+    <dependency>
+      <groupId>org.elasticsearch</groupId>
+      <artifactId>elasticsearch</artifactId>
+      <version>2.4.1</version>
+    </dependency>
 
     <dependency>
       <groupId>commons-fileupload</groupId>
@@ -141,12 +157,28 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.7.7</version>
+      <exclusions>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>2.0.44-beta</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.8.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-1.2-api</artifactId>
+      <version>2.8.1</version>
     </dependency>
   </dependencies>
   <build>

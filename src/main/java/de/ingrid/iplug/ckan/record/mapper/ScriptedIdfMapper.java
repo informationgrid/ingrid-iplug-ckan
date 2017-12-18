@@ -28,7 +28,8 @@ package de.ingrid.iplug.ckan.record.mapper;
 import java.util.Hashtable;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 import org.w3c.dom.Document;
@@ -62,7 +63,7 @@ public class ScriptedIdfMapper implements IIdfMapper {
     private Resource[] mappingScripts;
     private boolean compile = false;
 
-    private static final Logger log = Logger.getLogger(ScriptedIdfMapper.class);
+    private static final Logger log = LogManager.getLogger(ScriptedIdfMapper.class);
 
     @Override
     public synchronized void map(SourceRecord record, Document doc) throws Exception {
